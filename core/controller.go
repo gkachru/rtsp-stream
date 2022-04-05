@@ -154,30 +154,29 @@ func (c *Controller) isAuthenticated(r *http.Request, endpoint string) bool {
 		return true
 	}
 	token, claims := c.jwt.Validate(r.Header.Get("Authorization"))
-	if token == nil || !token.Valid {
-		return false
-	}
+	tokenInvalid := token == nil || !token.Valid
+	
 	switch endpoint {
 	case "list":
 		if c.spec.Endpoints.List.Secret == "" {
 			return true
 		}
-		return claims.Secret == c.spec.Endpoints.List.Secret
+		return !tokenInvalid && claims.Secret == c.spec.Endpoints.List.Secret
 	case "start":
 		if c.spec.Endpoints.Start.Secret == "" {
 			return true
 		}
-		return claims.Secret == c.spec.Endpoints.Start.Secret
+		return !tokenInvalid && claims.Secret == c.spec.Endpoints.Start.Secret
 	case "stop":
 		if c.spec.Endpoints.Stop.Secret == "" {
 			return true
 		}
-		return claims.Secret == c.spec.Endpoints.Stop.Secret
+		return !tokenInvalid && claims.Secret == c.spec.Endpoints.Stop.Secret
 	case "static":
 		if c.spec.Endpoints.Static.Secret == "" {
 			return true
 		}
-		return claims.Secret == c.spec.Endpoints.Static.Secret
+		return !tokenInvalid && claims.Secret == c.spec.Endpoints.Static.Secret
 	}
 	return true
 }
