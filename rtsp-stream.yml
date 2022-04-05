@@ -1,0 +1,13 @@
+version: 1.0
+endpoints:
+  start:
+    enabled: true
+    secret: do-not-reveal-this
+  static:
+    enabled: true
+  stop:
+    enabled: true
+    secret: do-not-reveal-this
+  list:
+    enabled: true
+    secret: do-not-reveal-this
