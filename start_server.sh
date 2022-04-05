@@ -19,6 +19,6 @@ docker run -d \
         -e RTSP_STREAM_CORS_ALLOW_CREDENTIALS=false \
         -e RTSP_STREAM_CORS_MAX_AGE=0 \
         -e RTSP_STREAM_PORT=3080 \
-        -p 80:3080 \
+        -p 8080:3080 \
         --name streamer \
         roverr/rtsp-stream:${DOCKER_VERSION}
